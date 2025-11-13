@@ -3,55 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your CV</title>
+  <title>Your CV - StruoCV</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex flex-col items-center py-10">
+<body class="bg-gray-100 py-10">
 
-  <div id="cvPreview" class="bg-white shadow-lg rounded-lg w-3/4 p-8">
-    <h1 class="text-3xl font-bold text-center text-teal-600 mb-6">Your CV</h1>
-    <div id="cvContent"></div>
+  <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-10">
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-4xl font-bold text-[#5c5cce]" id="fullName"></h1>
+      <button onclick="window.print()" class="bg-teal-600 hover:bg-teal-700 text-white px-5 py-2 rounded-lg">Download PDF</button>
+    </div>
+
+    <div class="border-b pb-4 mb-6">
+      <p class="text-gray-700"><span class="font-semibold">Email:</span> <span id="email"></span></p>
+      <p class="text-gray-700"><span class="font-semibold">Phone:</span> <span id="phone"></span></p>
+      <p class="text-gray-700"><span class="font-semibold">Address:</span> <span id="address"></span></p>
+      <p class="text-gray-700"><span class="font-semibold">City:</span> <span id="city"></span></p>
+    </div>
+
+    <div class="mb-6">
+      <h2 class="text-2xl font-semibold text-[#5c5cce] mb-2">Education</h2>
+      <p class="text-gray-700"><span id="educationInstitution"></span></p>
+      <p class="text-gray-700"><span id="educationDegree"></span></p>
+      <p class="text-gray-700"><span id="educationYears"></span></p>
+    </div>
+
+    <div class="mb-6">
+      <h2 class="text-2xl font-semibold text-[#5c5cce] mb-2">Technical Skills</h2>
+      <p class="text-gray-700"><strong>Front-end:</strong> <span id="skillsFrontend"></span></p>
+      <p class="text-gray-700"><strong>Back-end:</strong> <span id="skillsBackend"></span></p>
+      <p class="text-gray-700"><strong>Tools:</strong> <span id="skillsTools"></span></p>
+    </div>
+
+    <div class="mb-6">
+      <h2 class="text-2xl font-semibold text-[#5c5cce] mb-2">Professional Experience</h2>
+      <p class="text-gray-700"><strong>Company:</strong> <span id="experienceCompany"></span></p>
+      <p class="text-gray-700"><strong>Position:</strong> <span id="experiencePosition"></span></p>
+      <p class="text-gray-700"><strong>Duration:</strong> <span id="experienceDuration"></span></p>
+      <p class="text-gray-700"><strong>Description:</strong> <span id="experienceDescription"></span></p>
+    </div>
+
+    <div class="mb-6">
+      <h2 class="text-2xl font-semibold text-[#5c5cce] mb-2">Certifications</h2>
+      <p class="text-gray-700"><strong>Name:</strong> <span id="certName"></span></p>
+      <p class="text-gray-700"><strong>Organization:</strong> <span id="certOrg"></span></p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-semibold text-[#5c5cce] mb-2">Interests</h2>
+      <p class="text-gray-700" id="hobby"></p>
+    </div>
   </div>
 
-  <button onclick="window.print()" class="mt-8 bg-teal-600 text-white px-6 py-2 rounded">Download PDF</button>
-
   <script>
-    const data = JSON.parse(localStorage.getItem("cvData"));
+    const cvData = JSON.parse(localStorage.getItem("cvData"));
 
-    if (data) {
-      document.getElementById("cvContent").innerHTML = `
-        <h2 class="text-xl font-semibold mb-2">Personal Information</h2>
-        <p><strong>Name:</strong> ${data.firstName} ${data.lastName}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Phone:</strong> ${data.phone}</p>
-        <p><strong>Address:</strong> ${data.address}, ${data.city}</p>
-        <hr class="my-4">
-
-        <h2 class="text-xl font-semibold mb-2">Education</h2>
-        <p>${data.degree} at ${data.institution} (${data.years})</p>
-        <hr class="my-4">
-
-        <h2 class="text-xl font-semibold mb-2">Technical Skills</h2>
-        <p><strong>Front-end:</strong> ${data.frontend}</p>
-        <p><strong>Back-end:</strong> ${data.backend}</p>
-        <p><strong>Tools:</strong> ${data.tools}</p>
-        <hr class="my-4">
-
-        <h2 class="text-xl font-semibold mb-2">Experience</h2>
-        <p><strong>${data.position}</strong> at ${data.company} (${data.duration})</p>
-        <p>${data.description}</p>
-        <hr class="my-4">
-
-        <h2 class="text-xl font-semibold mb-2">Certifications</h2>
-        <p>${data.certName} - ${data.organization}</p>
-        <hr class="my-4">
-
-        <h2 class="text-xl font-semibold mb-2">Interests</h2>
-        <p>${data.hobby}</p>
-      `;
+    if (!cvData) {
+      alert("No CV data found. Please fill the form first.");
+      window.location.href = "index.html";
     } else {
-      document.getElementById("cvContent").innerHTML = "<p>No CV data found.</p>";
+      document.getElementById("fullName").textContent = `${cvData.firstName || ""} ${cvData.lastName || ""}`;
+      document.getElementById("email").textContent = cvData.email || "";
+      document.getElementById("phone").textContent = cvData.phone || "";
+      document.getElementById("address").textContent = cvData.address || "";
+      document.getElementById("city").textContent = cvData.city || "";
+
+      document.getElementById("educationInstitution").textContent = cvData.educationInstitution || "";
+      document.getElementById("educationDegree").textContent = cvData.educationDegree || "";
+      document.getElementById("educationYears").textContent = cvData.educationYears || "";
+
+      document.getElementById("skillsFrontend").textContent = cvData.skillsFrontend || "";
+      document.getElementById("skillsBackend").textContent = cvData.skillsBackend || "";
+      document.getElementById("skillsTools").textContent = cvData.skillsTools || "";
+
+      document.getElementById("experienceCompany").textContent = cvData.experienceCompany || "";
+      document.getElementById("experiencePosition").textContent = cvData.experiencePosition || "";
+      document.getElementById("experienceDuration").textContent = cvData.experienceDuration || "";
+      document.getElementById("experienceDescription").textContent = cvData.experienceDescription || "";
+
+      document.getElementById("certName").textContent = cvData.certName || "";
+      document.getElementById("certOrg").textContent = cvData.certOrg || "";
+
+      document.getElementById("hobby").textContent = cvData.hobby || "";
     }
   </script>
+
 </body>
 </html>
