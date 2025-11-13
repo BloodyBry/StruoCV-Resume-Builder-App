@@ -33,3 +33,5 @@ const updateSteps = (e) => {
 buttons.forEach(button => {
     button.addEventListener("click", updateSteps);
 });
+
+

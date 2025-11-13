@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your CV</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex flex-col items-center py-10">
+
+  <div id="cvPreview" class="bg-white shadow-lg rounded-lg w-3/4 p-8">
+    <h1 class="text-3xl font-bold text-center text-teal-600 mb-6">Your CV</h1>
+    <div id="cvContent"></div>
+  </div>
+
+  <button onclick="window.print()" class="mt-8 bg-teal-600 text-white px-6 py-2 rounded">Download PDF</button>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem("cvData"));
+
+    if (data) {
+      document.getElementById("cvContent").innerHTML = `
+        <h2 class="text-xl font-semibold mb-2">Personal Information</h2>
+        <p><strong>Name:</strong> ${data.firstName} ${data.lastName}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Phone:</strong> ${data.phone}</p>
+        <p><strong>Address:</strong> ${data.address}, ${data.city}</p>
+        <hr class="my-4">
+
+        <h2 class="text-xl font-semibold mb-2">Education</h2>
+        <p>${data.degree} at ${data.institution} (${data.years})</p>
+        <hr class="my-4">
+
+        <h2 class="text-xl font-semibold mb-2">Technical Skills</h2>
+        <p><strong>Front-end:</strong> ${data.frontend}</p>
+        <p><strong>Back-end:</strong> ${data.backend}</p>
+        <p><strong>Tools:</strong> ${data.tools}</p>
+        <hr class="my-4">
+
+        <h2 class="text-xl font-semibold mb-2">Experience</h2>
+        <p><strong>${data.position}</strong> at ${data.company} (${data.duration})</p>
+        <p>${data.description}</p>
+        <hr class="my-4">
+
+        <h2 class="text-xl font-semibold mb-2">Certifications</h2>
+        <p>${data.certName} - ${data.organization}</p>
+        <hr class="my-4">
+
+        <h2 class="text-xl font-semibold mb-2">Interests</h2>
+        <p>${data.hobby}</p>
+      `;
+    } else {
+      document.getElementById("cvContent").innerHTML = "<p>No CV data found.</p>";
+    }
+  </script>
+</body>
+</html>

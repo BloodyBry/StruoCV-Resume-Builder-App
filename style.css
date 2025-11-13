@@ -8,10 +8,10 @@
 body {
     min-height: 100vh;
     display: flex;
-    align-items: flex-start;   /* changed from center */
+    align-items: flex-start;  
     justify-content: center;
-    background: #f3f4f6;       /* matches Tailwind bg-gray-100 */
-    padding: 40px 0;           /* added padding for top/bottom spacing */
+    background: #f3f4f6;       
+    padding: 40px 0;           
 }
 
 
@@ -52,8 +52,8 @@ body {
 
 .steps .circle.active {
     transition-delay: 100ms;
-    border-color: #007A55;
-    color: r#007A55;
+    border-color: #40C057;
+    color: r#40C057;
 
 }
 
@@ -69,7 +69,7 @@ body {
     position: absolute;
     height: 100%;
     width: 0%;
-    background: #007A55;
+    background: #40C057;
     transition: all 300ms ease;
 }
 
@@ -80,7 +80,7 @@ body {
 
 .buttons button {
     padding: 8px 25px;
-    background: #007A55;
+    background: #40C057;
     border: none;
     border-radius: 8px;
     color: #fff;
